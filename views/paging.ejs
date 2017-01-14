@@ -1,0 +1,57 @@
+<br />
+<div>
+    <% if (!isFirstPage) { %>
+    <span class="prepage">
+        <a title="上一页" href="?p=<%= page-1 %>">上一页</a>
+        <a href="?p=<%= 1 %>">首页</a>
+    </span>
+    <% } %>
+    <%if(Math.ceil(total/10)<5){%>
+    <%for(var i = 0;i<Math.ceil(total/10);i++){%>
+    <span class="page">
+        <a href="?p=<%= i+1 %>"><%= i+1%></a>
+    </span>
+    <%}%>
+    <%}else{%>
+        <%if(page<3){%>
+    <%for(var i = 0;i<5;i++){%>
+    <span class="page">
+            <a href="?p=<%= i+1 %>"><%= i+1%></a>
+         </span>
+    <%}%>
+        <%}else if(page>Math.ceil(total/10)-2){%>
+    <%for(var i = Math.ceil(total/10)-5;i<Math.ceil(total/10);i++){%>
+    <span class="page">
+            <a href="?p=<%= i+1 %>"><%= i+1%></a>
+         </span>
+    <%}%>
+        <%}else{%>
+    <%for(var i = (page-3);i<(page+2);i++){%>
+    <span class="page">
+            <a href="?p=<%= i+1 %>"><%= i+1%></a>
+         </span>
+    <%}%>
+        <%}%>
+    <%}%>
+    <% if (!isLastPage) { %>
+    <span class="nextpage">
+        <a title="下一页" href="?p=<%= page+1 %>">下一页</a>
+        <a href="?p=<%= Math.ceil(total/10) %>">尾页</a>
+    </span>
+    <% } %>
+</div>
+<script>
+    $(function () {
+        if(Math.ceil(<%= total/10 %>)<5) {
+            $('.page a').eq(<%= page - 1 %>).addClass('current');
+        }else{
+            if(<%= (page<3) %>){
+                $('.page a').eq(<%= page - 1 %>).addClass('current');
+            }else if(<%= page>Math.ceil(total/10)-2 %>){
+                $('.page a').eq(<%= page - Math.ceil(total/10) + 4  %>).addClass('current');
+            }else{
+                $('.page a').eq(2).addClass('current');
+            }
+        }
+    });
+</script>
